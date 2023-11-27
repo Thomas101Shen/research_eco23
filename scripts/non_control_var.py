@@ -5,7 +5,7 @@ def main():
 	second=pd.read_csv("./data_files/digit/t2008digit.csv", index_col=[0])
 	third=pd.read_csv("./data_files/digit/t2013digit.csv", index_col=[0])
 
-	print(len(second["idstd"].tolist()))
+	# print(len(second["idstd"].tolist()))
 
 	first=first[first["q72"]>0]
 	second=second[second["l1"]>0]
@@ -15,7 +15,7 @@ def main():
 	second["tot_emp"]=second["l1"]
 	third["tot_emp"]=third["l1"]
 
-	print(len(second["idstd"].tolist()))
+	# print(len(second["idstd"].tolist()))
 
 	first["q3a_ii"]=pd.to_numeric(first["q3a_ii"])
 	second["b2b"]=pd.to_numeric(second["b2b"])
@@ -31,34 +31,7 @@ def main():
 	second["perc_foriegn_own"]=second["b2b"]
 	third["perc_foriegn_own"]=third["b2b"]
 
-
-	print(len(second["idstd"].tolist()))
-
-	# first["q15a_ii"]=pd.to_numeric(first["q15a_ii"])
-	# second["d3b"]=pd.to_numeric(second["d3b"])
-
-	# third=third[third["d3b"]!="Don't know"]
-	# third["d3b"]=pd.to_numeric(third["d3b"])
-
-	# first=first[first["q15a_ii"]>=0]
-	# second=second[second["d3b"]>=0]
-	# third=third[third["d3b"]>=0]
-
-	# first=first[first["q15a_iii"]>=0]
-	# second=second[second["d3c"]>=0]
-	# third=third[third["d3c"]>=0]
-
-	# first["perc_exports"]=first["q15a_iii"] + first["q15a_ii"]
-	# second["perc_exports"]=second["d3c"] + second["d3b"]
-	# third["perc_exports"]=third["d3c"] + third["d3b"]
-
-	# print(len(second["idstd"].tolist()))
-
-	first=first[first["p1a1_2004"]>=0]
-	second=second[second["d2"]>=0]
-
-	# Commenting out total sales as dep var to inc treat sample
-
+#     testing sample size with total sales
 	# third=third[third["d2"]!="Don't know"]
 	# third=third[third["d2"]!="Refusal"]
 	# third["d2"]=pd.to_numeric(third["d2"])
@@ -67,6 +40,10 @@ def main():
 	# first["total_sales"]=first["p1a1_2004"]
 	# second["total_sales"]=second["d2"]
 	# third["total_sales"]=third["d2"]
+	# print(len(second["idstd"].tolist()))
+
+	first=first[first["p1a1_2004"]>=0]
+	second=second[second["d2"]>=0]
 
 	first.to_csv("./data_files/non_control_var/t2005non_con_var.csv")
 	second.to_csv("./data_files/non_control_var/t2008non_con_var.csv")
