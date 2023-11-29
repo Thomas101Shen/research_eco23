@@ -6,40 +6,40 @@ def main():
 	third = pd.read_csv("./data_files/non_control_var/t2013non_con_var.csv", index_col=[0])
 
 
-	first["q21"]=pd.to_numeric(first["q21"])
-	first["credit"]=first["q21"] # Some N/A values in credit, will deal with later
+	# first["q21"]=pd.to_numeric(first["q21"])
+	# first["credit"]=first["q21"] # Some N/A values in credit, will deal with later
 
-	second["q21"]=pd.to_numeric(second["k1e"])
-	second["credit"]=second["k1e"]
+	# second["q21"]=pd.to_numeric(second["k1e"])
+	# second["credit"]=second["k1e"]
 
-	third["k1c"]=pd.to_numeric(third["k1c"], errors="coerce")
-	third=third.dropna(subset=["k1c"])
-	third["credit"]=third["k1c"]
+	# third["k1c"]=pd.to_numeric(third["k1c"], errors="coerce")
+	# third=third.dropna(subset=["k1c"])
+	# third["credit"]=third["k1c"]
 
-	print(len(second["idstd"].tolist()))
+	# print(len(second["idstd"].tolist()))
 
-	# Brainstormed with taking out electricity as dep var to increase treatment size
+	# # Brainstormed with taking out electricity as dep var to increase treatment size
 
-	third["c30a"]=third["c30a"].replace(["Don't know", "DOES NOT APPLY", "No obstacle"], 0)
-	third["c30a"]=third["c30a"].replace("Minor obstacle", 1)
-	third["c30a"]=third["c30a"].replace("Moderate obstacle", 2)
-	third["c30a"]=third["c30a"].replace("Major obstacle", 3)
-	third["c30a"]=third["c30a"].replace("Very severe obstacle", 4)
+	# third["c30a"]=third["c30a"].replace(["Don't know", "DOES NOT APPLY", "No obstacle"], 0)
+	# third["c30a"]=third["c30a"].replace("Minor obstacle", 1)
+	# third["c30a"]=third["c30a"].replace("Moderate obstacle", 2)
+	# third["c30a"]=third["c30a"].replace("Major obstacle", 3)
+	# third["c30a"]=third["c30a"].replace("Very severe obstacle", 4)
 
-	third["electricity"]=third["c30a"]
+	# third["electricity"]=third["c30a"]
 
-	second["c30a"]=second["c30a"].replace(["Don't know", "Doesn not Apply (spontaneous)", "No obstacle"], 0)
-	second["c30a"]=second["c30a"].replace("Minor obstacle", 1)
-	second["c30a"]=second["c30a"].replace("Moderate obstacle", 2)
-	second["c30a"]=second["c30a"].replace("Major obstacle", 3)
-	second["c30a"]=second["c30a"].replace("Very severe obstacle", 4)
+	# second["c30a"]=second["c30a"].replace(["Don't know", "Doesn not Apply (spontaneous)", "No obstacle"], 0)
+	# second["c30a"]=second["c30a"].replace("Minor obstacle", 1)
+	# second["c30a"]=second["c30a"].replace("Moderate obstacle", 2)
+	# second["c30a"]=second["c30a"].replace("Major obstacle", 3)
+	# second["c30a"]=second["c30a"].replace("Very severe obstacle", 4)
 
-	second["electricity"]=second["c30a"]
+	# second["electricity"]=second["c30a"]
 
-	print(len(second["idstd"].tolist()))
+	# print(len(second["idstd"].tolist()))
 
-	first["q22b"]=first["q22b"].replace(-7, 0)
-	first["electricity"]=first["q22b"]
+	# first["q22b"]=first["q22b"].replace(-7, 0)
+	# first["electricity"]=first["q22b"]
 
 	timeline=pd.concat([first, second, third], axis=0)
 
@@ -82,10 +82,7 @@ def main():
 	# 						col_ls.index("perc_foriegn_own"),col_ls.index("tdz"))
 	# 0, 2, 457-458, 735, 737-739
 	print(tl0513.head()["city"])
-	tl0513=tl0513.iloc[:, [col_ls.index("idstd"), col_ls.index("tot_emp"), col_ls.index("year"),
-								col_ls.index("E-mail"), col_ls.index("website"),
-								col_ls.index("electricity"), col_ls.index("credit"),
-								col_ls.index("perc_foriegn_own"),col_ls.index("tdz")]
+	tl0513=tl0513.iloc[:, [col_ls.index("idstd"), col_ls.index("year"), col_ls.index("tot_emp"), col_ls.index("tdz")]
 							]
 	# tl0513=tl0513.iloc[:, [0,2]]
 	# tl0513=pd.concat([tl0513, tl0513_cont], axis=1)
@@ -114,10 +111,7 @@ def main():
 	# print(col_ls.index("perc_foriegn_own"))
 	# print(col_ls.index("perc_exports"))
 	# print(col_ls.index("total_sales"))
-	timeline0813=timeline0813.iloc[:, [col_ls.index("idstd"), col_ls.index("tot_emp"), col_ls.index("year"),
-								col_ls.index("E-mail"), col_ls.index("website"),
-								col_ls.index("electricity"), col_ls.index("credit"),
-								col_ls.index("perc_foriegn_own"),col_ls.index("tdz")]
+	timeline0813=timeline0813.iloc[:, [col_ls.index("idstd"), col_ls.index("year"), col_ls.index("tot_emp"), col_ls.index("tdz")]
 							]
 	# timeline0813=timeline0813.iloc[:, [0,2]]
 	# timeline0813=pd.concat([timeline0813, timeline0813_cont], axis=1)
@@ -138,28 +132,19 @@ def main():
 	firms_not_droppedout.to_csv("./data_files/final_data/no_dropouts0513.csv")
 
 	col_ls=first.columns.tolist()
-	first=first.iloc[:, [col_ls.index("idstd"), col_ls.index("year"), col_ls.index("tot_emp"),
-								col_ls.index("E-mail"), col_ls.index("website"),
-								col_ls.index("electricity"), col_ls.index("credit"),
-								col_ls.index("perc_foriegn_own"),col_ls.index("tdz")]
+	first=first.iloc[:, [col_ls.index("idstd"), col_ls.index("year"), col_ls.index("tot_emp"), col_ls.index("tdz")]
 							]
 	print(first.head())
 
 	col_ls=second.columns.tolist()
-	second=second.iloc[:, [col_ls.index("idstd"), col_ls.index("year"), col_ls.index("tot_emp"),
-								col_ls.index("E-mail"), col_ls.index("website"),
-								col_ls.index("electricity"), col_ls.index("credit"),
-								col_ls.index("perc_foriegn_own"),col_ls.index("tdz")]
-								]
+	second=second.iloc[:, [col_ls.index("idstd"), col_ls.index("year"), col_ls.index("tot_emp"), col_ls.index("tdz")]
+							]
 
 	# second=pd.concat([second, second_cont], axis=1)
 	# print(second.head())
 
 	col_ls=third.columns.tolist()
-	third=third.iloc[:, [col_ls.index("idstd"),col_ls.index("tot_emp"),
-						col_ls.index("E-mail"), col_ls.index("website"),
-						col_ls.index("electricity"), col_ls.index("credit"),
-						col_ls.index("perc_foriegn_own"),col_ls.index("tdz")]
+	third=third.iloc[:, [col_ls.index("idstd"), col_ls.index("year"), col_ls.index("tot_emp"), col_ls.index("tdz")]
 							]
 	print(third.head())
 	third["year"]=2013

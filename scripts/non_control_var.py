@@ -17,19 +17,19 @@ def main():
 
 	# print(len(second["idstd"].tolist()))
 
-	first["q3a_ii"]=pd.to_numeric(first["q3a_ii"])
-	second["b2b"]=pd.to_numeric(second["b2b"])
+	# first["q3a_ii"]=pd.to_numeric(first["q3a_ii"])
+	# second["b2b"]=pd.to_numeric(second["b2b"])
 
-	third=third[third["b2b"]!="Don't know"]
-	third["b2b"]=pd.to_numeric(third["b2b"])
+	# third=third[third["b2b"]!="Don't know"]
+	# third["b2b"]=pd.to_numeric(third["b2b"])
 
-	first=first[first["q3a_ii"]>=0]
-	second=second[second["b2b"]>=0]
-	third=third[third["b2b"]>=0]
+	# first=first[first["q3a_ii"]>=0]
+	# second=second[second["b2b"]>=0]
+	# third=third[third["b2b"]>=0]
 
-	first["perc_foriegn_own"]=first["q3a_ii"]
-	second["perc_foriegn_own"]=second["b2b"]
-	third["perc_foriegn_own"]=third["b2b"]
+	# first["perc_foriegn_own"]=first["q3a_ii"]
+	# second["perc_foriegn_own"]=second["b2b"]
+	# third["perc_foriegn_own"]=third["b2b"]
 
 #     testing sample size with total sales
 	# third=third[third["d2"]!="Don't know"]
