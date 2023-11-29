@@ -4,7 +4,7 @@ def main():
 	from0508num()
 	from0813nonum()
 	timeline()
-	# FCS()
+	FCS()
 
 def from0813nonum():
 	with pd.io.stata.StataReader("./data_files/raw_data/Turkey_2008_2013_2019.dta") as sr:

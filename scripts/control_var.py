@@ -89,7 +89,7 @@ def main():
 							]
 	# tl0513=tl0513.iloc[:, [0,2]]
 	# tl0513=pd.concat([tl0513, tl0513_cont], axis=1)
-	tl0513.to_csv("./data_files/final_data/timelinefirms0513.csv")
+	tl0513.to_csv("./data_files/concat_data/timelinefirms0513.csv")
 
 	timeline0813=timeline[(timeline["year"]==2008) | (timeline["year"]==2013)]
 
@@ -124,7 +124,7 @@ def main():
 
 
 	timeline0813=timeline0813[timeline0813["idstd"].isin(firms_0813)]
-	timeline0813.to_csv("./data_files/final_data/timelinefirms0813.csv")
+	timeline0813.to_csv("./data_files/concat_data/timelinefirms0813.csv")
 
 	# Need to get rid of firms that show up in 2005-2008-2013 and 2008-2013
 
@@ -134,8 +134,10 @@ def main():
 	firms_not_droppedout.replace("Very Severe obstacle", 4, inplace=True)
 
 	firms_not_droppedout.drop_duplicates(inplace=True)
+	num=len(set(firms_not_droppedout["idstd"].tolist()))
+	print(f"total firms: {num}")
 
-	firms_not_droppedout.to_csv("./data_files/final_data/no_dropouts0513.csv")
+	firms_not_droppedout.to_csv("./data_files/concat_data/no_dropouts0513.csv")
 
 	col_ls=first.columns.tolist()
 	first=first.iloc[:, [col_ls.index("idstd"), col_ls.index("year"), col_ls.index("tot_emp"),
@@ -167,12 +169,12 @@ def main():
 	# third=pd.concat([third, third_cont], axis=1)
 	# print(third.head())
 
-	first.to_csv("./data_files/final_data/t2005.csv")
-	second.to_csv("./data_files/final_data/t2008.csv")
-	third.to_csv("./data_files/final_data/t2013.csv")
+	first.to_csv("./data_files/concat_data/t2005.csv")
+	second.to_csv("./data_files/concat_data/t2008.csv")
+	third.to_csv("./data_files/concat_data/t2013.csv")
 
 	timeline=pd.concat([first, second, third], axis=0)
-	timeline.to_csv("./data_files/final_data/timeline.csv")
+	timeline.to_csv("./data_files/concat_data/timeline.csv")
 
 	# Get firms that dropped out to compare to firms that stayed
 	dropoutfirms0508=[idstd for idstd in first["idstd"].tolist()
@@ -185,7 +187,7 @@ def main():
 	droppedout_2013=second[second["idstd"].isin(dropoutfirms0813)]
 
 	droppedoutfirms=pd.concat([droppedout_2008, droppedout_2013], axis=0)
-	droppedoutfirms.to_csv("./data_files/final_data/droppedout.csv")
+	droppedoutfirms.to_csv("./data_files/concat_data/droppedout.csv")
 
 
 if __name__ == '__main__':
