@@ -7,7 +7,7 @@ def main():
 
 
 	first["q21"]=pd.to_numeric(first["q21"])
-	first["credit"]=first["q21"]
+	first["credit"]=first["q21"] # Some N/A values in credit, will deal with later
 
 	second["q21"]=pd.to_numeric(second["k1e"])
 	second["credit"]=second["k1e"]
@@ -92,6 +92,9 @@ def main():
 	tl0513.to_csv("./data_files/final_data/timelinefirms0513.csv")
 
 	timeline0813=timeline[(timeline["year"]==2008) | (timeline["year"]==2013)]
+
+ 	# # supposed to remove all firms counted twice from 2005-2013 and 2008-2013
+	# timeline0813 = timeline.loc[~((timeline["year"]==2008)&timeline["idstd"].isin(firms_0513))]
 	firms_0813=[idstd for idstd in second["idstd"].tolist()
 				if idstd in third["idstd"].tolist()]
 
@@ -123,10 +126,14 @@ def main():
 	timeline0813=timeline0813[timeline0813["idstd"].isin(firms_0813)]
 	timeline0813.to_csv("./data_files/final_data/timelinefirms0813.csv")
 
+	# Need to get rid of firms that show up in 2005-2008-2013 and 2008-2013
+
 	firms_not_droppedout = pd.concat([tl0513, timeline0813], axis=0)
 
 	firms_not_droppedout.replace("No obstacle ", 0, inplace=True)
 	firms_not_droppedout.replace("Very Severe obstacle", 4, inplace=True)
+
+	firms_not_droppedout.drop_duplicates(inplace=True)
 
 	firms_not_droppedout.to_csv("./data_files/final_data/no_dropouts0513.csv")
 

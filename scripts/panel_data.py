@@ -46,8 +46,12 @@ def FCS():
 	rd1=pd.read_stata("./data_files/raw_data/Turkey-2009-FCS-full-data-.dta")
 	rd2=pd.read_stata("./data_files/raw_data/Turkey-2010-FCS-full data-.dta")
 	rd3=pd.read_stata("./data_files/raw_data/Turkey-2010-FCS w3-full data-.dta")
+	rd1["year"]=2009.0
+	rd2["year"]=2010.0
+	rd3["year"]=2010.5
 
 	full_FCS_data=pd.concat([rd1, rd2, rd3], axis=0)
+	print(full_FCS_data.head()["year"])
 	full_FCS_data.to_csv("./data_files/stage_1/full_FCS_data.csv")
 
 def timeline():
