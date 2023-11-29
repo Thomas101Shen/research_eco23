@@ -125,6 +125,9 @@ def main():
 
 	firms_not_droppedout = pd.concat([tl0513, timeline0813], axis=0)
 
+	firms_not_droppedout.replace("No obstacle ", 0, inplace=True)
+	firms_not_droppedout.replace("Very Severe obstacle", 4, inplace=True)
+
 	firms_not_droppedout.to_csv("./data_files/final_data/no_dropouts0513.csv")
 
 	col_ls=first.columns.tolist()
