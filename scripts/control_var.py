@@ -1,6 +1,6 @@
 import pandas as pd
 
-def main():
+def merge_data():
 	first = pd.read_csv("./data_files/non_control_var/t2005non_con_var.csv", index_col=[0])
 	second = pd.read_csv("./data_files/non_control_var/t2008non_con_var.csv", index_col=[0])
 	third = pd.read_csv("./data_files/non_control_var/t2013non_con_var.csv", index_col=[0])
@@ -191,4 +191,4 @@ def main():
 
 
 if __name__ == '__main__':
-	main()
+	merge_data()

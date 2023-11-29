@@ -1,6 +1,6 @@
 import pandas as pd
 
-def main():
+def count_dpout():
 	prepanel = pd.read_stata("./data_files/raw_data/Turkey2005_2008_panel.dta")
 	panel = pd.read_stata("./data_files/raw_data/Turkey_2008_2013_2019.dta", convert_categoricals=False)
 	rd1 = pd.read_stata("./data_files/raw_data/Turkey-2009-FCS-full-data-.dta")
@@ -76,4 +76,4 @@ def main():
 	print("firms that dropped out in 2019: ", len(from050913) - len(from0519))
 
 if __name__ == '__main__':
-	main()
+	count_dpout()

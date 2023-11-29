@@ -1,6 +1,6 @@
 import pandas as pd
 
-def main():
+def nc_var():
 	first=pd.read_csv("./data_files/digit/t2005digit.csv", index_col=[0])
 	second=pd.read_csv("./data_files/digit/t2008digit.csv", index_col=[0])
 	third=pd.read_csv("./data_files/digit/t2013digit.csv", index_col=[0])
@@ -50,4 +50,4 @@ def main():
 	third.to_csv("./data_files/non_control_var/t2013non_con_var.csv")
 
 if __name__ == '__main__':
-	main()
+	nc_var()

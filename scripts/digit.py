@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def main():
+def dig():
 	digit2013()
 	digit2008_05()
 
@@ -105,4 +105,4 @@ def digit2008_05():
 	first.to_csv("./data_files/digit/t2005digit.csv")
 
 if __name__ == '__main__':
-	main()
+	dig()

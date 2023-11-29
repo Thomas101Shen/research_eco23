@@ -1,8 +1,8 @@
 import pandas as pd
 
 def grab_firms():
-	fcs = pd.read_csv("./data_files/stage_1/full_FCS_data.csv")
-	timeline = pd.read_csv("./data_files/concat_data/no_dropouts0513.csv")
+	fcs = pd.read_csv("./data_files/stage_1/full_FCS_data.csv", index_col=[0])
+	timeline = pd.read_csv("./data_files/concat_data/no_dropouts0513.csv", index_col=[0])
 	firms = set(timeline["idstd"].tolist())
 	firms=list(firms)
 	fcs_firms = [firm for firm in firms if firm in fcs["idstd"].tolist()]
@@ -14,7 +14,7 @@ def grab_firms():
 
 	first = fcs[fcs["year"]==2009.0]
 	second = fcs[fcs["year"]==2010.0]
-	third = fcs[fcs["year"]==2010.1]
+	third = fcs[fcs["year"]==2010.5]
 
 	first["tot_emp"]=pd.to_numeric(first["e1"])
 
@@ -30,6 +30,7 @@ def grab_firms():
 
 	first = first[(first["idstd"].isin(firms_third)) | (first["idstd"].isin(firms_second))]
 	third = third[third["idstd"].isin(first["idstd"].tolist())]
+	third["year"]=2010
 	FCS_merg=pd.concat([first, second, third], axis=0)
 	FCS_merg=FCS_merg[FCS_merg["tot_emp"]>0]
 
@@ -39,7 +40,7 @@ def grab_firms():
 
 	tdz_fcs=timeline[timeline["idstd"].isin]
 
-	FCS_merg.to_csv("./data_files/concat_data/fcsData.csv")
+	FCS_merg.to_csv("./data_files/concat_data/fcs_data.csv")
 
 if __name__ == '__main__':
 	grab_firms()
