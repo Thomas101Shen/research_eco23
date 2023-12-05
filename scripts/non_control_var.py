@@ -31,15 +31,15 @@ def nc_var():
 	second["perc_foriegn_own"]=second["b2b"]
 	third["perc_foriegn_own"]=third["b2b"]
 
-#     testing sample size with total sales
+	# testing sample size with total sales
 	# third=third[third["d2"]!="Don't know"]
 	# third=third[third["d2"]!="Refusal"]
 	# third["d2"]=pd.to_numeric(third["d2"])
 	# third=third[third["d2"]>=0]
 
-	# first["total_sales"]=first["p1a1_2004"]
-	# second["total_sales"]=second["d2"]
-	# third["total_sales"]=third["d2"]
+	# first["tot_sales"]=first["p1a1_2004"]
+	# second["tot_sales"]=second["d2"]
+	# third["tot_sales"]=third["d2"]
 	# print(len(second["idstd"].tolist()))
 
 	first=first[first["p1a1_2004"]>=0]

@@ -48,14 +48,12 @@ def merge_data():
 				and idstd in third["idstd"].tolist()]
 	tl0513=timeline[timeline["idstd"].isin(firms_0513)]
 
-	tdz13=['gebze', 'ankara', 'izmir', 'istanbul',
-	'eskisehir', 'kocaeli', 'konya', 'antayla',
-	'trabzon', 'kayseri', 'adana', 'erzurum',
-	'isparta', 'mersin', 'yalova', 'bursa', 'gaziantep',
-	'denizli', 'elazig', 'sivas', 'edirne', 'diyarbakir',
-	'yogzat', 'burdur', 'amasya', 'kirklareli', 'bilecik',
-	'tunceli', 'karaman', 'canakkale', 'usak', 'osmaniye',
-	'kirsehir', 'mugla', 'gumushane', 'bayburt', 'hakkari', 'kilis']
+	tdz13 = {"gebze": 2, "ankara": 5, "izmir": 4, "istanbul": 6, "eskisehir": 1, "kocaeli": 3, "konya": 1, "antayla": 1
+	, "trabzon": 1, "kayseri": 1, "adana": 1, "erzurum": 1, "isparta": 1, "mersin": 1, "yalova": 6,
+	"bursa": 1, "gaziantep": 1, "denizli": 1, "elazig": 1, "sivas": 1, "edirne": 1, "diyarbakir": 2,
+	"yogzat": 3, "burdur": 2, "amasya": 2, "kirklareli": 2, "bilecik": 2, "tunceli": 2,
+	"karaman": 1, "canakkale": 1, "usak": 1, "osmaniye": 1, "kirsehir": 1, "mugla": 1,
+	"gumushane": 1, "bayburt": 1, "hakkari": 1, "kilis": 1}
 
 	print("firms from 05 to 2013: ", len(firms_0513))
 
@@ -63,27 +61,16 @@ def merge_data():
 	for firm in firms_0513:
 		city08=tl0513.loc[(tl0513["idstd"]==firm) & (tl0513["year"]==2008), "city"].iat[0]
 		city08=city08.lower()
-		if city08 in tdz13:
-			tl0513.loc[(tl0513["idstd"]==firm) & (tl0513["year"]==2013), "tdz"]=1
-			third.loc[(third["idstd"]==firm), "tdz"]=1
+		if city08 in tdz13.keys():
+			tl0513.loc[(tl0513["idstd"]==firm) & (tl0513["year"]==2013), "tdz"]=tdz13[city08]
+			third.loc[(third["idstd"]==firm), "tdz"]=tdz13[city08]
 
 	col_ls = tl0513.columns.tolist()
-	# print(col_ls.index("digitization"))
-	# print(col_ls.index("electricity"))
-	# print(col_ls.index("credit"))
-	# print(col_ls.index("tot_emp"))
-	# print(col_ls.index("perc_foriegn_own"))
-	# print(col_ls.index("perc_exports"))
-	# print(col_ls.index("total_sales"))
-
-	# print(col_ls.index("idstd"), col_ls.index("year"),
-	# 						col_ls.index("E-mail"), col_ls.index("website"),
-	# 						col_ls.index("electricity"), col_ls.index("credit"),
-	# 						col_ls.index("perc_foriegn_own"),col_ls.index("tdz"))
-	# 0, 2, 457-458, 735, 737-739
 	print(tl0513.head()["city"])
-	tl0513=tl0513.iloc[:, [col_ls.index("idstd"), col_ls.index("tot_emp"), col_ls.index("year"),
-								col_ls.index("E-mail"), col_ls.index("website"),
+	tl0513=tl0513.iloc[:, [col_ls.index("idstd"), col_ls.index("tot_emp"),
+								col_ls.index("year"),
+								# col_ls.index("tot_sales"),
+								col_ls.index("email"), col_ls.index("website"),
 								col_ls.index("electricity"), col_ls.index("credit"),
 								col_ls.index("perc_foriegn_own"),col_ls.index("tdz")]
 							]
@@ -114,11 +101,14 @@ def merge_data():
 	# print(col_ls.index("perc_foriegn_own"))
 	# print(col_ls.index("perc_exports"))
 	# print(col_ls.index("total_sales"))
-	timeline0813=timeline0813.iloc[:, [col_ls.index("idstd"), col_ls.index("tot_emp"), col_ls.index("year"),
-								col_ls.index("E-mail"), col_ls.index("website"),
+	timeline0813=timeline0813.iloc[:, [col_ls.index("idstd"), col_ls.index("tot_emp"),
+								col_ls.index("year"),
+								# col_ls.index("tot_sales"),
+								col_ls.index("email"), col_ls.index("website"),
 								col_ls.index("electricity"), col_ls.index("credit"),
 								col_ls.index("perc_foriegn_own"),col_ls.index("tdz")]
 							]
+	# print(timeline0813.head()["tot_sales"])
 	# timeline0813=timeline0813.iloc[:, [0,2]]
 	# timeline0813=pd.concat([timeline0813, timeline0813_cont], axis=1)
 
@@ -140,16 +130,20 @@ def merge_data():
 	firms_not_droppedout.to_csv("./data_files/concat_data/no_dropouts0513.csv")
 
 	col_ls=first.columns.tolist()
-	first=first.iloc[:, [col_ls.index("idstd"), col_ls.index("year"), col_ls.index("tot_emp"),
-								col_ls.index("E-mail"), col_ls.index("website"),
+	first=first.iloc[:,[col_ls.index("idstd"), col_ls.index("tot_emp"),
+								col_ls.index("year"),
+								# col_ls.index("tot_sales"),
+								col_ls.index("email"), col_ls.index("website"),
 								col_ls.index("electricity"), col_ls.index("credit"),
 								col_ls.index("perc_foriegn_own"),col_ls.index("tdz")]
 							]
 	print(first.head())
 
 	col_ls=second.columns.tolist()
-	second=second.iloc[:, [col_ls.index("idstd"), col_ls.index("year"), col_ls.index("tot_emp"),
-								col_ls.index("E-mail"), col_ls.index("website"),
+	second=second.iloc[:, [col_ls.index("idstd"), col_ls.index("year"),
+								col_ls.index("tot_emp"),
+								# col_ls.index("tot_sales"),
+								col_ls.index("email"), col_ls.index("website"),
 								col_ls.index("electricity"), col_ls.index("credit"),
 								col_ls.index("perc_foriegn_own"),col_ls.index("tdz")]
 								]
@@ -158,12 +152,13 @@ def merge_data():
 	# print(second.head())
 
 	col_ls=third.columns.tolist()
-	third=third.iloc[:, [col_ls.index("idstd"),col_ls.index("tot_emp"),
-						col_ls.index("E-mail"), col_ls.index("website"),
+	third=third.iloc[:, [col_ls.index("idstd"), col_ls.index("tot_emp"),
+						col_ls.index("year"),
+						# col_ls.index("tot_sales"),
+						col_ls.index("email"), col_ls.index("website"),
 						col_ls.index("electricity"), col_ls.index("credit"),
 						col_ls.index("perc_foriegn_own"),col_ls.index("tdz")]
-							]
-	print(third.head())
+						]
 	third["year"]=2013
 	# third["year"]=2013 Comment this part out after removing tot sales as dep var to prevent duplicate keys
 	# third=pd.concat([third, third_cont], axis=1)

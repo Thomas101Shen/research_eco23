@@ -16,12 +16,13 @@ def grab_firms():
 	second = fcs[fcs["year"]==2010.0]
 	third = fcs[fcs["year"]==2010.5]
 
-	first["tot_emp"]=pd.to_numeric(first["e1"])
+	first["tot_emp"]=pd.to_numeric(first["e1"], errors='coerce').dropna()
+	second["tot_emp"]=pd.to_numeric(second["c1"], errors='coerce').dropna()
+	third["tot_emp"]=pd.to_numeric(third["c1"], errors='coerce').dropna()
 
-	second["tot_emp"]=pd.to_numeric(second["c1"])
-
-	third["tot_emp"]=pd.to_numeric(third["c1"])
-
+	# first["tot_sales"]=pd.to_numeric(first["d1a"], errors='coerce').dropna()
+	# second["tot_sales"]=pd.to_numeric(second["e6"], errors='coerce').dropna()
+	# third["tot_sales"]=pd.to_numeric(third["e6"], errors='coerce').dropna()
 	firms_third=third["idstd"].tolist()
 	firms_second=second["idstd"].tolist()
 
@@ -36,6 +37,7 @@ def grab_firms():
 
 	col_ls = FCS_merg.columns.tolist()
 	FCS_merg=FCS_merg.iloc[:, [col_ls.index("idstd"), col_ls.index("tot_emp"),
+							# col_ls.index("tot_sales"),
 							col_ls.index("year"),]]
 
 	tdz_fcs=timeline[timeline["idstd"].isin]
